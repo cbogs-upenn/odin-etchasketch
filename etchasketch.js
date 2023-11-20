@@ -9,8 +9,14 @@ let rowLabel = "";
 
 const container = document.querySelector("#container");
 const resizeButton = document.querySelector("#btn");
+const clearButton = document.querySelector("#clrbtn");
 
 resizeButton.addEventListener('click', resize);
+clearButton.addEventListener("click", () => {
+    grid.remove();
+    createGrid(totalRows);
+});
+
 
 createGrid(totalRows); // kick off this shindig
 
@@ -64,11 +70,18 @@ function resize() {
         newSize = 100;  //keep this under control please!
     }
 
+    // refresh the event listener on the clear button so it knows the new size
+    
+    clearButton.addEventListener("click", () => {
+        grid.remove();
+        createGrid(newSize);
+    });
+
     //get rid of old grid
 
     grid.remove();
 
-    //and make a
+    //and make a new one
   
     createGrid(newSize);
 
