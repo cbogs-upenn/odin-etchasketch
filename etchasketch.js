@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 let totalRows = 32;
 let totalColumns = totalRows; //separate them out in case we decide to implement different x & y values
@@ -11,107 +11,125 @@ let rowLabel = "";
 const container = document.querySelector("#container");
 const resizeButton = document.querySelector("#btn");
 const clearButton = document.querySelector("#clrbtn");
+const modeButton = document.querySelector("#modebtn");
 
-resizeButton.addEventListener('click', resize);
+modeButton.textContent = "Draw Mode: " + drawMode; // label the mode button
+
+resizeButton.addEventListener("click", resize);
 clearButton.addEventListener("click", () => {
-    grid.remove();
-    createGrid(totalRows);
+  grid.remove();
+  createGrid(totalRows);
 });
-
+modeButton.addEventListener("click", () => {
+  changeMode(drawMode);
+});
 
 createGrid(totalRows); // kick off this shindig
 
-
 function createGrid(size) {
+  // set up a size x size grid of square divs
+  // I am at a loss for why it's going column then row but I'm going with it 'cause it's working
 
-    // set up a size x size grid of square divs
-    // I am at a loss for why it's going column then row but I'm going with it 'cause it's working
+  const grid = document.createElement("div");
+  grid.setAttribute("id", "grid");
+  container.appendChild(grid);
 
-    const grid = document.createElement('div');
-        grid.setAttribute("id", "grid");
-        container.appendChild(grid);    
+  for (let row = 1; row <= size; row++) {
+    rowLabel = "c" + row; // label will be c1, c2, etc.
 
-    for (let row = 1; row <= size; row++) {
+    const cellRow = document.createElement("div");
+    cellRow.setAttribute("id", rowLabel);
+    cellRow.classList.add("row");
 
-        rowLabel = "c" + row;  // label will be c1, c2, etc.
+    grid.appendChild(cellRow);
 
-        const cellRow = document.createElement('div');
-        cellRow.setAttribute("id", rowLabel);
-        cellRow.classList.add("row");
+    for (let column = 1; column <= size; column++) {
+      cellSize = 960 / size + "px"; //div is 960px
+      cellLabel = "c" + row + "r" + column; // label will be c1r1, c1r1, etc.
 
-        grid.appendChild(cellRow);
+      const cell = document.createElement("div");
+      cell.setAttribute("id", cellLabel);
+      cell.classList.add("cell");
+      cell.style.height = cellSize;
+      cell.style.width = cellSize;
+      cell.addEventListener("mouseenter", () => {
+        //cell.classList.toggle('active'); // this is for the black version
+        //cell.style.backgroundColor = chooseNewColor(); // this is for the colorful version
+        changeCell(cell.id);
+      });
 
-        for (let column = 1; column <= size; column++) {
-
-            cellSize = (960 / size) + "px"; //div is 960px
-            cellLabel = "c" + row + "r" + column; // label will be c1r1, c1r1, etc. 
-
-            const cell = document.createElement('div');
-            cell.setAttribute("id", cellLabel);
-            cell.classList.add("cell");
-            cell.style.height = cellSize;
-            cell.style.width = cellSize;
-            cell.addEventListener("mouseenter", () => {
-                //cell.classList.toggle('active'); // this is for the black version
-                cell.style.backgroundColor = chooseNewColor(); // this is for the colorful version
-            });
-
-            cellRow.appendChild(cell);
-
-        }
-
+      cellRow.appendChild(cell);
     }
+  }
 }
 
-
 function resize() {
+  let newSize = prompt("How many squares per side?", "16");
+  if (newSize > 100) {
+    newSize = 100; //keep this under control please!
+  }
 
-    let newSize = prompt("How many squares per side?", "16");
-    if (newSize > 100) {
-        newSize = 100;  //keep this under control please!
-    }
+  // refresh the event listener on the clear button so it knows the new size
 
-    // refresh the event listener on the clear button so it knows the new size
-    
-    clearButton.addEventListener("click", () => {
-        grid.remove();
-        createGrid(newSize);
-    });
-
-    //get rid of old grid
-
+  clearButton.addEventListener("click", () => {
     grid.remove();
-
-    //and make a new one
-  
     createGrid(newSize);
+  });
 
+  //get rid of old grid
+
+  grid.remove();
+
+  //and make a new one
+
+  createGrid(newSize);
 }
 
 // for colorful version we need a function to choose a random RGB value
 
-function chooseNewColor(){
+function chooseNewColor() {
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
 
-    let r = Math.floor(Math.random() * 255);
-    let g = Math.floor(Math.random() * 255);
-    let b = Math.floor(Math.random() * 255);
+  let newColor = "rgb(" + r + ", " + g + ", " + b + ")";
 
-    let newColor = 'rgb(' + r + ', ' + g + ', ' + b +')';
-
-    return newColor;
-
+  return newColor;
 }
 
 // to switch these we need a function that looks at the mode setting and does the correct action on click
 
-function changeCell(){
+function changeCell(cellid) {
+  console.log(drawMode);
+  if (drawMode === "Black") {
+    const thiscellID = "#" + cellid;
+    //const thiscellID = cellid;
+    console.log("cell ID:" + thiscellID);
+    const thisCell = document.querySelector(thiscellID);
+    console.log("query selector:" + thisCell);
+    thisCell.classList.toggle("active");
 
-    if (drawMode === "Black"){
+    return;
+  } else if (drawMode === "Color") {
+    const currentcellID = "#" + cellid;
+    console.log("cell ID:" + currentcellID);
+    const currentCell = document.querySelector(currentcellID);
+    console.log("query selector:" + currentCell);
+    currentCell.style.backgroundColor = chooseNewColor();
+  }
 
-    }
+  return;
+}
 
-    if (drawMode === "Color"){
+function changeMode(mode) {
+  if (mode === "Black") {
+    drawMode = "Color";
+    //write it to the button
+    modeButton.textContent = "Draw Mode: Color";
+  } else if (mode === "Color") {
+    drawMode = "Black";
+    modeButton.textContent = "Draw Mode: Black";
+  }
 
-    }
-
+  return;
 }
