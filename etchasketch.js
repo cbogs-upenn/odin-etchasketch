@@ -36,7 +36,8 @@ function createGrid(size) {
 
         for (let column = 1; column <= size; column++) {
 
-            cellSize = (960 / totalRows) + "px"; //div is 960px
+            cellSize = (960 / size) + "px"; //div is 960px
+            console.log(cellSize);
             cellLabel = "c" + row + "r" + column; // label will be c1r1, c1r1, etc. 
 
             const cell = document.createElement('div');
