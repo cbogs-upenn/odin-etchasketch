@@ -1,38 +1,46 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .container {
-    width: 960px;
-    height: 960px;
-    display: flex;
-    flex-direction: row;
+  width: 960px;
+  height: 960px;
+  display: flex;
+  flex-direction: row;
 }
 
 #grid {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .cell {
-    background-color: bisque;
-    border: 1px solid tan;
-    flex-shrink: 0;
-    /* width: 60px;
+  background-color: bisque;
+  border: 1px solid tan;
+  flex-shrink: 0;
+  /* width: 60px;
     height: 60px; */
 }
 
 .active {
-    background-color: black;
+  background-color: black;
 }
 
 .pagetitle {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 20px;
-
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 20px;
 }
 
 button {
-    padding: 10px;
-    margin: 10px 10px 30px 10px;
+  padding: 10px;
+  margin: 10px 10px 30px 10px;
+}
+
+p {
+  margin-top: 1px;
+  font-size: 12px;
+}
+
+h1 {
+  margin-bottom: 0px;
 }
