@@ -2,3 +2,8 @@
     box-sizing: border-box;
 }
 
+.cell {
+    background-color: bisque;
+    width: 20px;
+    height: 20px;
+}
