@@ -2,8 +2,15 @@
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
 .cell {
     background-color: bisque;
     width: 20px;
     height: 20px;
+    border: 1px solid tan;
+    flex-shrink: 0;
 }
