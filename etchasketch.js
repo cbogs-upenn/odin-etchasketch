@@ -43,7 +43,6 @@ function createGrid(size) {
         for (let column = 1; column <= size; column++) {
 
             cellSize = (960 / size) + "px"; //div is 960px
-            console.log(cellSize);
             cellLabel = "c" + row + "r" + column; // label will be c1r1, c1r1, etc. 
 
             const cell = document.createElement('div');
@@ -52,7 +51,8 @@ function createGrid(size) {
             cell.style.height = cellSize;
             cell.style.width = cellSize;
             cell.addEventListener("mouseenter", () => {
-                cell.classList.toggle('active');
+                //cell.classList.toggle('active'); // this is for the black version
+                cell.style.backgroundColor = chooseNewColor(); // this is for the colorful version
             });
 
             cellRow.appendChild(cell);
@@ -84,5 +84,19 @@ function resize() {
     //and make a new one
   
     createGrid(newSize);
+
+}
+
+// for colorful version we need a function to choose a random RGB value
+
+function chooseNewColor(){
+
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+
+    let newColor = 'rgb(' + r + ', ' + g + ', ' + b +')';
+
+    return newColor;
 
 }
