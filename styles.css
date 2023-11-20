@@ -14,3 +14,7 @@
     border: 1px solid tan;
     flex-shrink: 0;
 }
+
+.active {
+    background-color: black;
+}

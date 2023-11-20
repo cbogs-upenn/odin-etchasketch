@@ -11,7 +11,7 @@ const container = document.querySelector("#container");
 
 for (let row = 0; row <= 15; row++){
     
-    rowLabel = "c" + row;  // label will be r0, r1, etc.
+    rowLabel = "c" + row;  // label will be c0, c1, etc.
 
     const cellRow = document.createElement('div');
             cellRow.setAttribute("id", rowLabel);
@@ -26,6 +26,9 @@ for (let row = 0; row <= 15; row++){
         const cell = document.createElement('div');
             cell.setAttribute("id", cellLabel);
             cell.classList.add("cell");
+            cell.addEventListener("mouseenter", () => {
+                cell.classList.toggle('active');
+            });
             
             cellRow.appendChild(cell);
         
