@@ -3,6 +3,7 @@
 let totalRows = 32;
 let totalColumns = totalRows; //separate them out in case we decide to implement different x & y values
 let cellSize = 0;
+let drawMode = "Black";
 
 let cellLabel = "";
 let rowLabel = "";
@@ -98,5 +99,19 @@ function chooseNewColor(){
     let newColor = 'rgb(' + r + ', ' + g + ', ' + b +')';
 
     return newColor;
+
+}
+
+// to switch these we need a function that looks at the mode setting and does the correct action on click
+
+function changeCell(){
+
+    if (drawMode === "Black"){
+
+    }
+
+    if (drawMode === "Color"){
+
+    }
 
 }
